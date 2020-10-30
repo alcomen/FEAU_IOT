@@ -1,13 +1,14 @@
-
 #include <WiFi.h>
 #include <PubSubClient.h>
 
-const char* SSID = "UnivapWiFi";
-const char* PASSWORD = "universidade";
+const char* SSID = "xxxx";
+const char* PASSWORD = "xxxx";
 
 const char* BROKER_MQTT = "broker.hivemq.com";
 const int BROKER_PORT = 1883;
 const char* ID_MQTT = "FEAU";
+
+float teste;
 
 WiFiClient espClient;
 PubSubClient mqtt(espClient);
@@ -160,9 +161,20 @@ void setup() {
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+
+  char str[5];
+
+  teste += 0.5;
+
+  for(int a=0; a<5; a++)
+  {
+    str[a] = 0;
+  }
+  
+  sprintf(str, "%3.1f", teste);
+
   checkConnections();
-  mqtt.publish("/professor/sensor/", "TESTE");
+  mqtt.publish("/professor/sensor/", str);
   mqtt.loop();
   delay(1000);
 }
